@@ -8,6 +8,8 @@ import io.nekohasekai.sfa.xposed.hooks.HookIConnectivityManagerOnTransact
 import io.nekohasekai.sfa.xposed.hooks.hidevpn.ConnectivityServiceHookHelper
 import io.nekohasekai.sfa.xposed.hooks.hidevpn.HookNetworkCapabilitiesWriteToParcel
 import io.nekohasekai.sfa.xposed.hooks.hidevpn.HookNetworkInterfaceGetName
+import io.nekohasekai.sfa.xposed.hooks.hidevpn.HookNetworkInterfaceGetFlags
+import io.nekohasekai.sfa.xposed.hooks.hidevpn.HookProcessGetInputStream
 import io.nekohasekai.sfa.xposed.hooks.hidevpnapp.HookPackageManagerGetInstalledPackages
 
 class XposedInit(base: XposedInterface, param: XposedModuleInterface.ModuleLoadedParam) : XposedModule(base, param) {
@@ -25,6 +27,8 @@ class XposedInit(base: XposedInterface, param: XposedModuleInterface.ModuleLoade
             HookPackageManagerGetInstalledPackages(param.classLoader),
             HookNetworkCapabilitiesWriteToParcel(),
             HookNetworkInterfaceGetName(param.classLoader),
+            HookNetworkInterfaceGetFlags(param.classLoader),
+            HookProcessGetInputStream(param.classLoader),
         )
 
         hooks.forEach { hook ->
