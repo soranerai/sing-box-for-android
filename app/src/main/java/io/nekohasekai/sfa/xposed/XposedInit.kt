@@ -10,12 +10,26 @@ import io.nekohasekai.sfa.xposed.hooks.hidevpn.HookNetworkCapabilitiesWriteToPar
 import io.nekohasekai.sfa.xposed.hooks.hidevpn.HookNetworkInterfaceGetName
 import io.nekohasekai.sfa.xposed.hooks.hidevpn.HookNetworkInterfaceGetFlags
 import io.nekohasekai.sfa.xposed.hooks.hidevpnapp.HookPackageManagerGetInstalledPackages
+import io.nekohasekai.sfa.xposed.hooks.hidevpn.HookNativeIoctl
+
 
 class XposedInit(base: XposedInterface, param: XposedModuleInterface.ModuleLoadedParam) : XposedModule(base, param) {
 
     private val activityThreadClass by lazy { Class.forName("android.app.ActivityThread") }
     private val currentActivityThreadMethod by lazy { activityThreadClass.getMethod("currentActivityThread") }
     private val getSystemContextMethod by lazy { activityThreadClass.getMethod("getSystemContext") }
+
+    override fun onPackageLoaded(param: XposedModuleInterface.PackageLoadedParam) {
+        super.onPackageLoaded(param)
+        
+        // Нативный хук нужно внедрять в процесс приложения
+        val nativeHook = HookNativeIoctl(param.classLoader)
+        try {
+            nativeHook.injectHook()
+        } catch (e: Throwable) {
+            HookErrorStore.e("XposedInit", "Failed to inject NativeHook to package", e)
+        }
+    }
 
     override fun onSystemServerLoaded(param: XposedModuleInterface.SystemServerLoadedParam) {
         val systemContext = resolveSystemContext()
