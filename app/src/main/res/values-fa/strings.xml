@@ -426,7 +426,6 @@
     <string name="privilege_settings_interface_prefix">پیشوند رابط</string>
   <string name="privilege_settings_lowlevel_hide_title">پنهان‌سازی سطح پایین (آزمایشی)</string>
   <string name="privilege_settings_lowlevel_hide_description">عبور از برخی شناسایی‌های بومی</string>
-  <string name="privilege_settings_lowlevel_hide_setup_scope_error_message">به نظر می‌رسد نسخه‌ای از LSPosed را نصب کرده‌اید که فاقد برنامه مدیریت است.\\n\\nلطفاً تنظیمات LSPosed را به صورت دستی (از طریق تنظیمات سیستم یا میانبر) باز کرده و اپلیکیشن‌های مورد نظر را در لیست ماژول‌ها انتخاب کنید.</string>
   <string name="privilege_settings_vpn_detection_title">تشخیص VPN</string>
     <string name="privilege_settings_view_logs">مشاهده لاگ‌ها</string>
     <string name="privilege_settings_export_debug">خروجی گرفتن اطلاعات اشکال‌زدایی</string>
@@ -444,6 +443,4 @@
     <string name="privilege_module_restart_notification_title">نیاز به راه‌اندازی مجدد</string>
     <string name="privilege_module_restart_notification_message">ماژول LSPosed به‌روزرسانی شد. برای اعمال تغییرات دستگاه را راه‌اندازی مجدد کنید.</string>
     <string name="privilege_module_restart_channel">ماژول LSPosed</string>
-  <string name="privilege_settings_lowlevel_hide_setup_scope">تنظیم محدوده اپلیکیشن</string>
-  <string name="privilege_settings_lowlevel_hide_setup_scope_description">انتخاب اپلیکیشن‌ها در مدیریت LSPosed</string>
 </resources>

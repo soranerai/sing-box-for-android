@@ -439,7 +439,6 @@
     <string name="privilege_settings_interface_prefix">介面前綴</string>
     <string name="privilege_settings_lowlevel_hide_title">底層隱藏 (實驗性)</string>
   <string name="privilege_settings_lowlevel_hide_description">绕過部分原生檢測</string>
-  <string name="privilege_settings_lowlevel_hide_setup_scope_error_message">看起來您安裝的 LSPosed 版本未包含管理器。\\n\\n請手動開啟 LSPosed 設定（透過系統設定或捷徑），並在模組清單中選取需要的應用程式。</string>
   <string name="privilege_settings_vpn_detection_title">VPN 檢測</string>
     <string name="privilege_settings_view_logs">檢視日誌</string>
     <string name="privilege_settings_export_debug">匯出除錯資訊</string>
@@ -461,6 +460,4 @@
     <string name="lsposed_module_pending_update">LSPosed 模組待更新</string>
     <string name="lsposed_module_pending_downgrade">LSPosed 模組待降級</string>
     <string name="lsposed_module_not_activated">LSPosed 模組未啟用</string>
-  <string name="privilege_settings_lowlevel_hide_setup_scope">設定應用程式範圍</string>
-  <string name="privilege_settings_lowlevel_hide_setup_scope_description">在 LSPosed 管理器中選取應用程式</string>
 </resources>

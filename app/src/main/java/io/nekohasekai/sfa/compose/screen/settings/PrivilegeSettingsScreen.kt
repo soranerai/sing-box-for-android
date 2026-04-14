@@ -826,7 +826,7 @@ fun PrivilegeSettingsScreen(navController: NavController, serviceStatus: Status 
                                 lowLevelHideEnabled = checked
                                 scope.launch {
                                     val failure = withContext(Dispatchers.IO) {
-                                        Settings.privilegeSettingsEnabled = checked
+                                        Settings.privilegeSettingsLowLevelHideEnabled = checked
                                         PrivilegeSettingsClient.sync()
                                     }
                                     if (failure != null) {
@@ -898,11 +898,8 @@ fun PrivilegeSettingsScreen(navController: NavController, serviceStatus: Status 
                                 if (resolved.isNotEmpty()) {
                                     try {
                                         context.startActivity(intent)
-                                    } catch (e: Exception) {
-                                        // Ошибка при запуске
-                                    }
+                                    } catch (e: Exception) { }
                                 } else {
-                                    // Если вообще ничего не найдено (случай Parasitic Manager)
                                     messageDialogTitle = context.getString(R.string.error_title)
                                     messageDialogMessage = context.getString(R.string.privilege_settings_lowlevel_hide_setup_scope_error_message).replace("\\n", "\n")
                                     showMessageDialog = true

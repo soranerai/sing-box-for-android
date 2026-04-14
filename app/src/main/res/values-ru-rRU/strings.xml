@@ -433,7 +433,7 @@
     <string name="privilege_settings_lowlevel_hide_title">Низкоуровневое сокрытие (экспериментально)</string>
   <string name="privilege_settings_lowlevel_hide_description">Подавление некоторых нативных проверок</string>
   <string name="privilege_settings_lowlevel_hide_setup_scope_description">Выберите приложения в LSPosed</string>
-  <string name="privilege_settings_lowlevel_hide_setup_scope_error_message">Похоже, у вас установлена версия LSPosed без менеджера. \\n\\nПожалуйста, откройте настройки LSPosed вручную (через настройки системы или ярлык) и выберите нужные приложения в списке модулей.</string>
+  <string name="privilege_settings_lowlevel_hide_setup_scope_error_message">Похоже, у вас установлена версия LSPosed без APK менеджера. \\n\\nПожалуйста, откройте настройки LSPosed вручную (через настройки системы или ярлык) и выберите нужные приложения в списке модулей.</string>
   <string name="privilege_settings_vpn_detection_title">Обнаружение VPN</string>
     <string name="privilege_settings_view_logs">Просмотреть журнал</string>
     <string name="privilege_settings_export_debug">Экспорт отладочной информации</string>
