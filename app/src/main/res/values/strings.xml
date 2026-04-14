@@ -442,6 +442,11 @@
     <string name="privilege_settings_hide_test_not_detected">Not detected</string>
     <string name="privilege_settings_interface_rename_title">Interface Rename</string>
     <string name="privilege_settings_interface_prefix">Interface prefix</string>
+    <string name="privilege_settings_lowlevel_hide_title">Low-level hide (experimental)</string>
+    <string name="privilege_settings_lowlevel_hide_description">Surpass some native detections</string>
+    <string name="privilege_settings_lowlevel_hide_setup_scope">Setup application scope</string>
+    <string name="privilege_settings_lowlevel_hide_setup_scope_description">Select applications in LSPosed Manager</string>
+    <string name="privilege_settings_lowlevel_hide_setup_scope_error_message">It looks like you have a version of LSPosed installed without the manager.  Please open the LSPosed settings manually (via system settings or a shortcut) and select the required applications in the module list.</string>
     <string name="privilege_settings_vpn_detection_title">VPN Detection</string>
     <string name="privilege_settings_view_logs">View logs</string>
     <string name="privilege_settings_export_debug">Export debug info</string>

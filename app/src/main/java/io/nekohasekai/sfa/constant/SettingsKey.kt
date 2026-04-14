@@ -31,6 +31,8 @@ object SettingsKey {
     const val PRIVILEGE_SETTINGS_INTERFACE_RENAME_ENABLED = "hide_settings_interface_rename_enabled"
     const val PRIVILEGE_SETTINGS_INTERFACE_PREFIX = "hide_settings_interface_prefix"
 
+    const val PRIVILEGE_SETTINGS_LOWLEVEL_HIDE_ENABLED = "hide_settings_lowlevel_enabled"
+
     // dashboard
     const val DASHBOARD_ITEM_ORDER = "dashboard_item_order"
     const val DASHBOARD_DISABLED_ITEMS = "dashboard_disabled_items"

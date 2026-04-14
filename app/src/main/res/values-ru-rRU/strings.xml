@@ -173,7 +173,7 @@
 
     <!-- Groups -->
     <string name="group_selected_title">Выбрано</string>
-    
+
     <!-- Log -->
     <string name="log_level">Уровень логов</string>
     <string name="filter_label">Фильтр: %s</string>
@@ -290,7 +290,7 @@
     <string name="package_installer_not_available">Разрешение на установку не предоставлено</string>
     <string name="grant_install_permission">Предоставить разрешение на установку</string>
     <string name="grant_install_permission_description">Разрешить установку приложений из этого источника</string>
-    
+
     <!-- Shizuku -->
     <string name="shizuku_not_available">Shizuku не установлен или не запущен</string>
     <string name="shizuku_description">Shizuku позволяет приложениям напрямую использовать системные API с повышенными привилегиями</string>
@@ -324,7 +324,7 @@
         <item quantity="many">%d дней назад</item>
         <item quantity="other">%d дней назад</item>
     </plurals>
-    
+
     <!-- Menu -->
     <string name="menu_undo">Отменить</string>
     <string name="menu_redo">Повторить</string>
@@ -346,24 +346,24 @@
     <string name="error_deprecated_documentation">Документация</string>
     <string name="file_manager_missing">На Вашем устройстве отсутствует стандартный файловый менеджер Android. Установите, например, Material Files.</string>
     <string name="no_file_manager">Файловый менеджер не найден</string>
-    
+
     <!-- Failed Operations -->
     <string name="failed_save_profile">Не удалось сохранить профиль: %s</string>
     <string name="failed_save_logs">Не удалось сохранить лог: %s</string>
     <string name="failed_share_logs">Не удалось отправить лог: %s</string>
     <string name="failed_read_configuration">Не удалось прочитать конфигурацию: %s</string>
-    
+
     <!-- Success Messages -->
     <string name="success_profile_saved">Профиль успешно сохранён</string>
     <string name="success_logs_saved">Лог успешно сохранён</string>
     <string name="success_configuration_saved">Конфигурация сохранена</string>
     <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
-    
+
     <!-- Toast Messages -->
     <string name="toast_clipboard_empty">Буфер обмена пуст</string>
     <string name="toast_copied_to_clipboard">Экспортировано в буфер обмена</string>
     <string name="toast_imported_from_clipboard">Импортировано из буфера обмена</string>
-    
+
     <!-- Scanning -->
     <string name="profile_add_scan_use_front_camera">Фронтальная камера</string>
     <string name="profile_add_scan_use_vendor_analyzer">Анализатор MLKit</string>
@@ -387,15 +387,15 @@
     <string name="categories">Категории</string>
     <string name="all_icons">Все иконки</string>
     <string name="back_to_categories">Назад к категориям</string>
-    
+
     <!-- QR Code -->
-    
+
     <!-- QR Stream (QRS) -->
     <string name="share_as_qrs">Отправить как QR Stream</string>
     <string name="qrs_fps">Кадров/сек.</string>
     <string name="qrs_slice_size">Размер фрагмента</string>
     <string name="qrs_what_is_qrs">Что такое QRS</string>
-    
+
     <!-- Search -->
     <string name="search_placeholder">Найти в документе</string>
 
@@ -410,7 +410,7 @@
     <string name="content_description_pause_logs">Приостановить лог</string>
     <string name="content_description_collapse_search">Свернуть поиск</string>
     <string name="content_description_search_logs">Поиск в логе</string>
-    
+
     <!-- Xposed Module -->
     <string name="xposed_description">Привилегированное расширение для sing-box</string>
 
@@ -430,7 +430,11 @@
     <string name="privilege_settings_hide_test_not_detected">Не обнаружено</string>
     <string name="privilege_settings_interface_rename_title">Переименование интерфейса</string>
     <string name="privilege_settings_interface_prefix">Префикс интерфейса</string>
-    <string name="privilege_settings_vpn_detection_title">Обнаружение VPN</string>
+    <string name="privilege_settings_lowlevel_hide_title">Низкоуровневое сокрытие (экспериментально)</string>
+  <string name="privilege_settings_lowlevel_hide_description">Подавление некоторых нативных проверок</string>
+  <string name="privilege_settings_lowlevel_hide_setup_scope_description">Выберите приложения в LSPosed</string>
+  <string name="privilege_settings_lowlevel_hide_setup_scope_error_message">Похоже, у вас установлена версия LSPosed без менеджера. \\n\\nПожалуйста, откройте настройки LSPosed вручную (через настройки системы или ярлык) и выберите нужные приложения в списке модулей.</string>
+  <string name="privilege_settings_vpn_detection_title">Обнаружение VPN</string>
     <string name="privilege_settings_view_logs">Просмотреть журнал</string>
     <string name="privilege_settings_export_debug">Экспорт отладочной информации</string>
     <string name="privilege_settings_hook_logs_empty">Журнал пуст</string>
@@ -447,4 +451,5 @@
     <string name="privilege_module_restart_notification_title">Требуется перезагрузка</string>
     <string name="privilege_module_restart_notification_message">Модуль LSPosed обновлён. Перезагрузите устройство, чтобы применить изменения.</string>
     <string name="privilege_module_restart_channel">Модуль LSPosed</string>
+  <string name="privilege_settings_lowlevel_hide_setup_scope">Настроить область приложений</string>
 </resources>

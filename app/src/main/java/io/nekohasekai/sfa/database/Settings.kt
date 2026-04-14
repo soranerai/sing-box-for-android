@@ -106,6 +106,10 @@ object Settings {
     ) { false }
     var privilegeSettingsInterfacePrefix by dataStore.string(SettingsKey.PRIVILEGE_SETTINGS_INTERFACE_PREFIX) { "wlan" }
 
+    var privilegeSettingsLowLevelHideEnabled by dataStore.boolean(
+        SettingsKey.PRIVILEGE_SETTINGS_LOWLEVEL_HIDE_ENABLED,
+    ) { false }
+
     var dashboardItemOrder by dataStore.string(SettingsKey.DASHBOARD_ITEM_ORDER) { "" }
     var dashboardDisabledItems by dataStore.stringSet(SettingsKey.DASHBOARD_DISABLED_ITEMS) { emptySet() }
 

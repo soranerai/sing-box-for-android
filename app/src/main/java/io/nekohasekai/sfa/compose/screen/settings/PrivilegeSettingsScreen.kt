@@ -26,6 +26,7 @@ import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.CheckBox
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.FilterAlt
+import androidx.compose.material.icons.outlined.SettingsInputComponent
 import androidx.compose.material.icons.outlined.ViewModule
 import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.AlertDialog
@@ -108,6 +109,7 @@ fun PrivilegeSettingsScreen(navController: NavController, serviceStatus: Status 
     var testResult by remember { mutableStateOf<DetectionResult?>(null) }
     var isTestRunning by remember { mutableStateOf(false) }
     var interfaceRenameEnabled by remember { mutableStateOf(Settings.privilegeSettingsInterfaceRenameEnabled) }
+    var lowLevelHideEnabled by remember { mutableStateOf(Settings.privilegeSettingsLowLevelHideEnabled) }
     var interfacePrefix by remember { mutableStateOf(Settings.privilegeSettingsInterfacePrefix) }
     var showInterfacePrefixDialog by remember { mutableStateOf(false) }
     var interfacePrefixInput by remember { mutableStateOf(interfacePrefix) }
@@ -594,6 +596,7 @@ fun PrivilegeSettingsScreen(navController: NavController, serviceStatus: Status 
                                 privilegeSettingsEnabled = checked
                                 if (checked && !interfaceRenameEnabled) {
                                     interfaceRenameEnabled = true
+                                    lowLevelHideEnabled = false
                                 }
                                 scope.launch {
                                     val failure =
@@ -774,6 +777,136 @@ fun PrivilegeSettingsScreen(navController: NavController, serviceStatus: Status 
                             .clickable(enabled = prefixEnabled) {
                                 interfacePrefixInput = interfacePrefix
                                 showInterfacePrefixDialog = true
+                            },
+                        colors = ListItemDefaults.colors(
+                            containerColor = Color.Transparent,
+                        ),
+                    )
+                }
+            }
+        }
+
+        Text(
+            text = stringResource(R.string.privilege_settings_lowlevel_hide_title),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(start = 32.dp, top = 24.dp, bottom = 8.dp),
+        )
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            ),
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                val disabledAlpha = 0.38f
+                ListItem(
+                    headlineContent = {
+                        Text(
+                            stringResource(R.string.enabled),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    },
+                    leadingContent = {
+                        Icon(
+                            imageVector = Icons.Outlined.FilterAlt,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                        )
+                    },
+                    trailingContent = {
+                        Switch(
+                            checked = lowLevelHideEnabled,
+                            onCheckedChange = { checked ->
+                                lowLevelHideEnabled = checked
+                                scope.launch {
+                                    val failure = withContext(Dispatchers.IO) {
+                                        Settings.privilegeSettingsEnabled = checked
+                                        PrivilegeSettingsClient.sync()
+                                    }
+                                    if (failure != null) {
+                                        messageDialogTitle = context.getString(R.string.error_title)
+                                        messageDialogMessage = failure.message ?: failure.toString()
+                                        showMessageDialog = true
+                                    } else if (checked && serviceStatus == Status.Started) {
+                                        GlobalEventBus.tryEmit(UiEvent.RestartToTakeEffect)
+                                    }
+                                }
+                            },
+                            enabled = privilegeControlsEnabled,
+                        )
+                    },
+                    modifier = Modifier
+                        .alpha(if (privilegeControlsEnabled) 1f else disabledAlpha)
+                        .clip(
+                            if (lowLevelHideEnabled) {
+                                RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
+                            } else {
+                                RoundedCornerShape(12.dp)
+                            },
+                        ),
+                    colors = ListItemDefaults.colors(
+                        containerColor = Color.Transparent,
+                    ),
+                )
+
+                if (lowLevelHideEnabled) {
+                    ListItem(
+                        headlineContent = {
+                            Text(
+                                stringResource(R.string.privilege_settings_lowlevel_hide_setup_scope),
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                        },
+                        supportingContent = {
+                            Text(
+                                stringResource(R.string.privilege_settings_lowlevel_hide_setup_scope_description),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        },
+                        leadingContent = {
+                            Icon(
+                                imageVector = Icons.Outlined.SettingsInputComponent,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                            )
+                        },
+                        trailingContent = {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        },
+                        modifier = Modifier
+                            .alpha(if (privilegeControlsEnabled) 1f else disabledAlpha)
+                            .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp))
+                            .clickable(enabled = privilegeControlsEnabled) {
+                                val intent = Intent("org.lsposed.manager.LAUNCH_MODULE").apply {
+                                    putExtra("pkg", context.packageName)
+                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                }
+
+                                val resolved = context.packageManager.queryIntentActivities(intent, 0)
+
+                                if (resolved.isNotEmpty()) {
+                                    try {
+                                        context.startActivity(intent)
+                                    } catch (e: Exception) {
+                                        // Ошибка при запуске
+                                    }
+                                } else {
+                                    // Если вообще ничего не найдено (случай Parasitic Manager)
+                                    messageDialogTitle = context.getString(R.string.error_title)
+                                    messageDialogMessage = context.getString(R.string.privilege_settings_lowlevel_hide_setup_scope_error_message).replace("\\n", "\n")
+                                    showMessageDialog = true
+                                }
                             },
                         colors = ListItemDefaults.colors(
                             containerColor = Color.Transparent,

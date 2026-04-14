@@ -434,7 +434,10 @@
     <string name="privilege_settings_hide_test_not_detected">未检测到</string>
     <string name="privilege_settings_interface_rename_title">接口重命名</string>
     <string name="privilege_settings_interface_prefix">接口前缀</string>
-    <string name="privilege_settings_vpn_detection_title">VPN 检测</string>
+    <string name="privilege_settings_lowlevel_hide_title">低层级隐藏 (实验性)</string>
+  <string name="privilege_settings_lowlevel_hide_description">绕过部分原生检测</string>
+  <string name="privilege_settings_lowlevel_hide_setup_scope_error_message">看来您安装的 LSPosed 版本未包含管理器。\\n\\n请手动打开 LSPosed 设置（通过系统设置或快捷方式），并在模块列表中选择所需的应用程序。</string>
+  <string name="privilege_settings_vpn_detection_title">VPN 检测</string>
     <string name="privilege_settings_view_logs">查看日志</string>
     <string name="privilege_settings_export_debug">导出调试信息</string>
     <string name="privilege_settings_hook_logs_empty">暂无日志</string>
@@ -455,4 +458,6 @@
     <string name="lsposed_module_pending_update">LSPosed 模块待更新</string>
     <string name="lsposed_module_pending_downgrade">LSPosed 模块待降级</string>
     <string name="lsposed_module_not_activated">LSPosed 模块未激活</string>
+  <string name="privilege_settings_lowlevel_hide_setup_scope">设置应用作用域</string>
+  <string name="privilege_settings_lowlevel_hide_setup_scope_description">在 LSPosed 管理器中 fence 选择应用</string>
 </resources>
