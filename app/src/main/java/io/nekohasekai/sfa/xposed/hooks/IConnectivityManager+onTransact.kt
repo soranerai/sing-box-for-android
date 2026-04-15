@@ -12,7 +12,6 @@ import io.nekohasekai.sfa.xposed.HookErrorStore
 import io.nekohasekai.sfa.xposed.HookStatusKeys
 import io.nekohasekai.sfa.xposed.HookStatusStore
 import io.nekohasekai.sfa.xposed.PrivilegeSettingsStore
-import io.nekohasekai.sfa.xposed.hooks.MtkUtils
 
 class HookIConnectivityManagerOnTransact(private val classLoader: ClassLoader, private val context: Context?) : XHook {
     private companion object {
@@ -32,7 +31,7 @@ class HookIConnectivityManagerOnTransact(private val classLoader: ClassLoader, p
             object : SafeMethodHook(SOURCE) {
                 override fun beforeHook(param: MethodHookParam) {
                     MtkUtils.performCleanup()
-                    
+
                     val code = param.args[0] as Int
                     if (code != HookStatusKeys.TRANSACTION_STATUS &&
                         code != HookStatusKeys.TRANSACTION_UPDATE_PRIVILEGE_SETTINGS &&
@@ -100,7 +99,13 @@ class HookIConnectivityManagerOnTransact(private val classLoader: ClassLoader, p
                             prefix = data.readString() ?: "en"
                         }
                     }
-                    PrivilegeSettingsStore.update(enabled, packages, renameEnabled, prefix)
+                    var lowLevelHideEnabled = false
+
+                    if (data.dataAvail() >= 4) {
+                        lowLevelHideEnabled = data.readInt() != 0
+                    }
+
+                    PrivilegeSettingsStore.update(enabled, packages, renameEnabled, prefix, lowLevelHideEnabled)
                     reply!!.writeNoException()
                     param.result = true
                 }

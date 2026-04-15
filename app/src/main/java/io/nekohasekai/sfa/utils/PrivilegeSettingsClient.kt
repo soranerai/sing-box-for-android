@@ -33,6 +33,7 @@ object PrivilegeSettingsClient {
             ParceledListSlice(Settings.privilegeSettingsList.map { PackageEntry(it) }).writeToParcel(data, 0)
             data.writeInt(if (Settings.privilegeSettingsInterfaceRenameEnabled) 1 else 0)
             data.writeString(Settings.privilegeSettingsInterfacePrefix)
+            data.writeInt(if (Settings.privilegeSettingsLowLevelHideEnabled) 1 else 0)
             try {
                 val ok = binder.transact(HookStatusKeys.TRANSACTION_UPDATE_PRIVILEGE_SETTINGS, data, reply, 0)
                 reply.readException()

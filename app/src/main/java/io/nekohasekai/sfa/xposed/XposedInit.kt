@@ -4,7 +4,6 @@ import android.content.Context
 import io.github.libxposed.api.XposedInterface
 import io.github.libxposed.api.XposedModule
 import io.github.libxposed.api.XposedModuleInterface
-import io.nekohasekai.sfa.database.Settings
 import io.nekohasekai.sfa.xposed.hooks.HookIConnectivityManagerOnTransact
 import io.nekohasekai.sfa.xposed.hooks.hidevpn.ConnectivityServiceHookHelper
 import io.nekohasekai.sfa.xposed.hooks.hidevpn.HookNativeIoctl
@@ -22,10 +21,6 @@ class XposedInit(base: XposedInterface, param: XposedModuleInterface.ModuleLoade
 
     override fun onPackageLoaded(param: XposedModuleInterface.PackageLoadedParam) {
         super.onPackageLoaded(param)
-
-        if (!Settings.privilegeSettingsLowLevelHideEnabled) {
-            return
-        }
 
         val nativeHook = HookNativeIoctl(param.classLoader)
         try {

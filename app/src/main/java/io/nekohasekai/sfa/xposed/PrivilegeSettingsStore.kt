@@ -18,6 +18,9 @@ object PrivilegeSettingsStore {
     private var interfaceRenameEnabled = false
 
     @Volatile
+    private var lowLevelHideEnabled = false
+
+    @Volatile
     private var interfacePrefix = "en"
     private val uidCache = ConcurrentHashMap<Int, Boolean>()
 
@@ -25,15 +28,26 @@ object PrivilegeSettingsStore {
     private val getPackageManagerMethod by lazy { appGlobalsClass.getMethod("getPackageManager") }
     private var getPackagesForUidMethod: Method? = null
 
-    fun update(enabled: Boolean, packages: Set<String>, interfaceRenameEnabled: Boolean, interfacePrefix: String) {
+    fun update(enabled: Boolean, packages: Set<String>, interfaceRenameEnabled: Boolean, interfacePrefix: String, lowLevelHideEnabled: Boolean) {
         this.enabled = enabled
         packageSet = packages
         this.interfaceRenameEnabled = interfaceRenameEnabled
+        this.lowLevelHideEnabled = lowLevelHideEnabled
+
+        // there is no way beside writing in props
+        try {
+            val c = Class.forName("android.os.SystemProperties")
+            val set = c.getMethod("set", String::class.java, String::class.java)
+            set.invoke(null, "debug.sfa.lowlevel_hide", if (lowLevelHideEnabled) "1" else "0")
+        } catch (e: Throwable) {
+            HookErrorStore.e("PrivilegeSettingsStore", "Failed to set SystemProperty", e)
+        }
+
         this.interfacePrefix = normalizePrefix(interfacePrefix)
         uidCache.clear()
         HookErrorStore.i(
             "PrivilegeSettingsStore",
-            "PrivilegeSettings updated: enabled=$enabled size=${packages.size} rename=$interfaceRenameEnabled prefix=${this.interfacePrefix}",
+            "PrivilegeSettings updated: enabled=$enabled size=${packages.size} rename=$interfaceRenameEnabled prefix=${this.interfacePrefix} lowlevel=${this.lowLevelHideEnabled}",
         )
         writeSettingsFile()
     }
@@ -43,6 +57,8 @@ object PrivilegeSettingsStore {
     fun shouldRenameInterface(): Boolean = interfaceRenameEnabled
 
     fun interfacePrefix(): String = interfacePrefix
+
+    fun isLowLevelHideEnabled(): Boolean = lowLevelHideEnabled
 
     fun isUidSelected(uid: Int): Boolean {
         val cached = uidCache[uid]
@@ -99,6 +115,8 @@ object PrivilegeSettingsStore {
                 append("packages=")
                 append(packagesLine)
                 append('\n')
+                append("lowLevelHideEnabled=")
+                append(if (lowLevelHideEnabled) "1" else "0")
             }
             file.writeText(content)
             file.setReadable(true, true)

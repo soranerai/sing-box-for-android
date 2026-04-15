@@ -596,7 +596,7 @@ fun PrivilegeSettingsScreen(navController: NavController, serviceStatus: Status 
                                 privilegeSettingsEnabled = checked
                                 if (checked && !interfaceRenameEnabled) {
                                     interfaceRenameEnabled = true
-                                    lowLevelHideEnabled = false
+                                    lowLevelHideEnabled = true
                                 }
                                 scope.launch {
                                     val failure =
@@ -604,6 +604,7 @@ fun PrivilegeSettingsScreen(navController: NavController, serviceStatus: Status 
                                             Settings.privilegeSettingsEnabled = checked
                                             if (checked) {
                                                 Settings.privilegeSettingsInterfaceRenameEnabled = true
+                                                Settings.privilegeSettingsLowLevelHideEnabled = true
                                             }
                                             PrivilegeSettingsClient.sync()
                                         }
